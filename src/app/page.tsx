@@ -13,8 +13,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/api/portfolio`, { cache: 'no-store' });
+        const res = await fetch('/api/portfolio', { cache: 'no-store' });
         if (!res.ok) throw new Error('Failed to fetch portfolio data');
         const json = await res.json();
         setData(json);
