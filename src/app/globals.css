@@ -27,15 +27,15 @@
   }
 
   .dark {
-    --background: 222 84% 4.9%; /* slate-900 */
+    --background: 222 47% 11.2%; /* slate-800 -> A bit darker than image for contrast */
     --foreground: 0 0% 98%;
-    --card: 222 47% 13.5%; /* A bit lighter than secondary for nav */
+    --card: 224 71% 4%; /* Near black from image */
     --card-foreground: 0 0% 98%;
     --popover: 222 47% 11.2%;
     --popover-foreground: 0 0% 98%;
     --primary: 43 74% 49%; /* golden */
     --primary-foreground: 222 47% 11%;
-    --secondary: 222 47% 11.2%; /* slate-800 */
+    --secondary: 222 84% 4.9%; /* slate-900 -> For the pill */
     --secondary-foreground: 0 0% 98%;
     --muted: 215 28% 17%;
     --muted-foreground: 0 0% 63.9%;
@@ -56,5 +56,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .shadow-glow {
+    box-shadow: 0 0 1px hsl(var(--primary)), 0 0 4px hsl(var(--primary) / 0.4), 0 0 12px hsl(var(--primary) / 0.2);
   }
 }

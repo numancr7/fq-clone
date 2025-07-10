@@ -22,8 +22,7 @@ export function Navbar({ activeSection, onSectionChange }: NavbarProps) {
   return (
     <>
       {/* Desktop Navbar: floating at the top-right */}
-      <nav className="hidden md:flex absolute top-0 right-0 w-[47%] justify-end p-4 z-10 rounded-bl-2xl bg-card/95 backdrop-blur-sm border-b border-l border-border/10">
-          {navLinks.map((link) => (
+      <nav className="hidden md:flex absolute top-0 right-0 w-auto justify-end p-4 z-10 rounded-bl-2xl rounded-tr-2xl bg-card/95 backdrop-blur-sm border-b border-l border-border/10">          {navLinks.map((link) => (
             <Button
               key={link.id}
               type="button"

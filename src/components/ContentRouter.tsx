@@ -30,7 +30,7 @@ export function ContentRouter({ data }: { data: any }) {
     };
 
     return (
-        <div className="relative bg-secondary rounded-2xl shadow-lg">
+        <div className="relative bg-secondary rounded-2xl shadow-glow">
             <Navbar activeSection={activeSection} onSectionChange={handleSectionChange} />
             <main className="p-[30px] md:pt-24">
                 {renderSection()}

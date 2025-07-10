@@ -31,15 +31,29 @@ export default function Home() {
   if (!data) return null;
 
   return (
-    <div className="max-w-screen-xl mx-auto p-2 md:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <aside className="w-xl lg:col-span-4 lg:sticky lg:top-8">
-          <ProfileSidebar personalData={data.personal} />
-        </aside>
-        <div className="w-full lg:col-span-8">
-          <ClientContentRouter data={data} />
+    <div className="max-w-screen-xl mx-auto p-4 md:p-8">
+            <div className="flex flex-col gap-8">
+                {/* Mobile and Horizontal Sidebar for Medium/Large Screens */}
+                <div className="block lg:hidden">
+                    <ProfileSidebar personalData={data.personal} layout="horizontal" />
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Vertical Sidebar for XL Screens */}
+                    <aside className="w-full lg:col-span-3 lg:sticky lg:top-8 hidden lg:block">
+                        <ProfileSidebar personalData={data.personal} layout="vertical" />
+                    </aside>
+                    <div className="w-full lg:col-span-9 relative">
+
+                <ClientContentRouter data={data} />
+            </div>
         </div>
-      </div>
     </div>
+</div>
   );
 } 
+
+
+
+
+
+

@@ -40,11 +40,11 @@ export function AboutSection({ aboutData }: { aboutData: AboutData }) {
 
       <div>
         <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">What I&apos;m Doing</h3>
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-y-4 gap-x-6 md:grid-cols-2">
           {aboutData?.whatIDo?.map((item, index) => {
             const IconComponent = iconMap[getServiceIconName(item.title || '')];
             return (
-              <Card key={index} className="transform transition-transform duration-300 hover:scale-105 hover:shadow-xl p-6">
+              <Card key={index} className="w-full transform transition-transform duration-300 hover:scale-105 hover:shadow-xl p-6">
                  <div className="flex items-start gap-4">
                       <div className="text-primary mt-1 flex-shrink-0">
                           {item.iconUrl ? (
