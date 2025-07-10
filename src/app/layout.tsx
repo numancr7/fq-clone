@@ -9,7 +9,7 @@ import { NextAuthSessionProvider } from '@/components/session-provider';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'Greenfolio',
+  title: 'numanxd portfolio',
   description: 'A personal portfolio website.',
 };
 

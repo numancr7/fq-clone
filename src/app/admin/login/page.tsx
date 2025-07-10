@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
         });
         router.push('/admin');
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: 'Error',
         description: 'Something went wrong',

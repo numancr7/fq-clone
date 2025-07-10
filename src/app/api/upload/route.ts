@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
+import path from 'path';
 
 // Configure Cloudinary with your credentials
 cloudinary.config({
@@ -19,20 +20,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No file provided.' }, { status: 400 });
     }
 
-    // Determine the resource type based on the file's MIME type
-    const resource_type = file.type === 'application/pdf' ? 'raw' : 'auto';
+    // Correctly determine resource_type based on MIME type
+    const resource_type = file.type === 'application/pdf' ? 'raw' : 'image';
+    
+    const fileExtension = path.extname(file.name);
+    const public_id = path.basename(file.name, fileExtension);
 
-    // Convert file to a buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary
-    // We need to use a stream to upload the buffer
     const uploadResult = await new Promise((resolve, reject) => {
        const uploadStream = cloudinary.uploader.upload_stream(
         {
-          // Explicitly set 'raw' for PDFs, let Cloudinary handle the rest
-          resource_type: resource_type,
+          resource_type: resource_type, // Use the determined resource_type
+          use_filename: true,
+          public_id: public_id,
+          overwrite: true,
         },
         (error, result) => {
           if (error) {
