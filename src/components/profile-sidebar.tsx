@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -10,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from './ui/skeleton';
+import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
 
 
 interface PersonalData {
@@ -70,6 +70,9 @@ export function ProfileSidebar({ personalData, layout = 'vertical' }: ProfileSid
     );
   }
 
+  // Debug log for resumeUrl
+  console.log('Sidebar resumeUrl:', personalData.resumeUrl);
+
   // A simple mapping for socials from href to icon name
   const getSocialIconName = (href: string) => {
     if (href.includes('github')) return 'GITHUB';
@@ -112,9 +115,15 @@ export function ProfileSidebar({ personalData, layout = 'vertical' }: ProfileSid
             )
           })}
           {personalData.resumeUrl && personalData.resumeUrl !== '#' && (
-              <a href={personalData.resumeUrl} download="resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center h-10 w-10 text-muted-foreground hover:text-primary transition-colors" aria-label="Download Resume">
-                  <Download className="h-5 w-5" />
-              </a>
+            <a
+              href={personalData.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center h-10 w-10 text-muted-foreground hover:text-primary transition-colors"
+              aria-label="View Resume"
+            >
+              <Download className="h-5 w-5" />
+            </a>
           )}
       </div>
   );
@@ -214,6 +223,7 @@ export function ProfileSidebar({ personalData, layout = 'vertical' }: ProfileSid
           <ContactList />
         </div>
       </div>
+     
       <SocialLinks />
     </div>
   );

@@ -178,11 +178,11 @@ export function AdminDashboard() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.type !== 'application/pdf') {
+    if (!['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
         toast({
             variant: 'destructive',
             title: 'Invalid File Type',
-            description: 'Please upload a PDF file for the resume.',
+            description: 'Please upload a JPG or PNG image for the resume.',
         });
         return;
     }
@@ -198,24 +198,24 @@ export function AdminDashboard() {
             body: formData,
         });
 
-        if (!response.ok) throw new Error('Resume upload failed');
+        let result = await response.json();
+        if (!response.ok) {
+          throw new Error(result?.error || 'Resume upload failed');
+        }
 
-        const result = await response.json();
         const newUrl = result.url;
-      
         handleInputChange('personal', 'resumeUrl', newUrl);
         
         toast({
             title: 'Resume Uploaded',
-            description: 'Your new resume has been saved.',
+            description: 'Your new resume image has been saved.',
         });
 
     } catch (error: any) {
-        console.error(error);
         toast({
             variant: 'destructive',
             title: 'Upload Error',
-            description: 'Could not upload your resume. Please try again.',
+            description: error?.message || 'Could not upload your resume. Please try again.',
         });
     } finally {
         setSaving(false);
@@ -375,11 +375,14 @@ export function AdminDashboard() {
                <Separator/>
                 <h3 className="text-lg font-medium">Resume File</h3>
                 <div>
-                  <Label htmlFor="resumeFile">Upload Resume (PDF)</Label>
-                  <Input id="resumeFile" type="file" accept="application/pdf" onChange={(e) => handleResumeUpload(e)} />
+                  <Label htmlFor="resumeFile">Upload Resume (JPG/PNG)</Label>
+                  <Input id="resumeFile" type="file" accept="image/jpeg,image/png,image/jpg" onChange={(e) => handleResumeUpload(e)} />
                   {data.personal.resumeUrl && (
                       <p className="text-sm text-muted-foreground mt-2">
-                          Current resume: <a href={data.personal.resumeUrl} download target="_blank" rel="noopener noreferrer" className="text-primary underline">View/Download</a>
+                          Current resume: 
+                          <a href={data.personal.resumeUrl} target="_blank" rel="noopener noreferrer">
+                            <img src={data.personal.resumeUrl} alt="Resume Preview" className="max-w-xs mt-2 rounded border cursor-pointer hover:shadow-lg" />
+                          </a>
                       </p>
                   )}
                 </div>

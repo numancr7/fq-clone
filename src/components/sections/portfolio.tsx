@@ -16,6 +16,7 @@ interface Project {
   image?: string;
   tags?: string[];
   dataAiHint?: string;
+  githubUrl?: string;
 }
 
 interface PortfolioData {
@@ -51,23 +52,40 @@ export function PortfolioSection({ portfolioData }: { portfolioData: PortfolioDa
         </SelectContent>
       </Select>
 
-      <div className="grid gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
-        {filteredProjects?.map((project, index) => (
-          <div key={index} className="group cursor-pointer">
-            <div className="relative h-60 w-full overflow-hidden rounded-xl mb-4">
-              <Image
-                src={project.image || '/placeholder-image.jpg'}
-                alt={project.title || 'Project'}
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint={project.dataAiHint || 'project'}
-                className="transition-transform duration-300 group-hover:scale-110"
-              />
+      <div className="grid gap-x-8 gap-y-12 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+        {filteredProjects?.map((project, index) => {
+          const cardContent = (
+            <div className="group cursor-pointer overflow-hidden rounded-xl bg-background shadow-md flex flex-col h-full">
+              <div className="relative w-full aspect-[4/3] overflow-hidden">
+                <Image
+                  src={project.image || '/placeholder-image.jpg'}
+                  alt={project.title || 'Project'}
+                  fill
+                  className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                  data-ai-hint={project.dataAiHint || 'project'}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+              <div className="p-4 flex-1 flex flex-col">
+                <h3 className="text-xl font-semibold text-foreground mb-1 break-words">{project.title || 'Untitled Project'}</h3>
+                <p className="text-muted-foreground line-clamp-2 break-words">{project.description || 'No description available'}</p>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-foreground mb-1">{project.title || 'Untitled Project'}</h3>
-            <p className="text-muted-foreground line-clamp-2">{project.description || 'No description available'}</p>
-          </div>
-        ))}
+          );
+          return project.githubUrl ? (
+            <a
+              key={index}
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full"
+            >
+              {cardContent}
+            </a>
+          ) : (
+            <div key={index}>{cardContent}</div>
+          );
+        })}
       </div>
     </section>
   );

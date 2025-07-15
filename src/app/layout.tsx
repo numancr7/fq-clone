@@ -5,11 +5,12 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { NextAuthSessionProvider } from '@/components/session-provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'numanxd portfolio',
+  title: 'numanx.site',
   description: 'A personal portfolio website.',
 };
 
@@ -36,8 +37,10 @@ export default function RootLayout({
             enableSystem={false}
             disableTransitionOnChange
           >
-            {children}
-            <Toaster />
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
           </ThemeProvider>
         </NextAuthSessionProvider>
       </body>

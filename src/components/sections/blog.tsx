@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -74,15 +73,29 @@ export function BlogSection({ blogData }: { blogData: BlogData }) {
         {blogData?.posts?.map((post: BlogPost, index: number) => (
           <Card key={index} className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl">
             <CardHeader className="p-0">
-               <div className="relative h-60 w-full">
-                <Image
-                  src={post.image || '/placeholder-image.jpg'}
-                  alt={post.title || 'Blog post'}
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint={post.dataAiHint || 'blog post'}
-                />
-              </div>
+              {post.url ? (
+                <a href={post.url} target="_blank" rel="noopener noreferrer">
+                  <div className="relative h-60 w-full">
+                    <Image
+                      src={post.image || '/placeholder-image.jpg'}
+                      alt={post.title || 'Blog post'}
+                      layout="fill"
+                      objectFit="cover"
+                      data-ai-hint={post.dataAiHint || 'blog post'}
+                    />
+                  </div>
+                </a>
+              ) : (
+                <div className="relative h-60 w-full">
+                  <Image
+                    src={post.image || '/placeholder-image.jpg'}
+                    alt={post.title || 'Blog post'}
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint={post.dataAiHint || 'blog post'}
+                  />
+                </div>
+              )}
             </CardHeader>
             <CardContent className="flex-grow p-6">
               <p className="mb-2 text-sm text-muted-foreground">
@@ -98,20 +111,29 @@ export function BlogSection({ blogData }: { blogData: BlogData }) {
                   }
                 })() : 'Date not available'}
               </p>
-              <CardTitle className="mb-2">{post.title || 'Untitled Post'}</CardTitle>
-              <p className="text-muted-foreground line-clamp-2">{post.description || 'No description available'}</p>
+              {post.url ? (
+                <a href={post.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  <CardTitle className="mb-2">{post.title || 'Untitled Post'}</CardTitle>
+                  <p className="text-muted-foreground line-clamp-2">{post.description || 'No description available'}</p>
+                </a>
+              ) : (
+                <>
+                  <CardTitle className="mb-2">{post.title || 'Untitled Post'}</CardTitle>
+                  <p className="text-muted-foreground line-clamp-2">{post.description || 'No description available'}</p>
+                </>
+              )}
             </CardContent>
             <CardFooter className="flex justify-between p-6 pt-0">
               <Button variant="outline" onClick={() => handleSummarize(post.content || '')}>
                 <Bot className="mr-2 h-4 w-4" />
                 Summarize
               </Button>
-              <Link href={post.url || '#'} target="_blank" rel="noopener noreferrer">
-                <Button variant="ghost">
+              <Button asChild variant="ghost">
+                <a href={post.url || '#'} target="_blank" rel="noopener noreferrer">
                   Read More
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+                </a>
+              </Button>
             </CardFooter>
           </Card>
         ))}

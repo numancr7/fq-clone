@@ -44,7 +44,7 @@ export function Navbar({ activeSection, onSectionChange }: NavbarProps) {
       </nav>
 
       {/* Mobile Navbar: fixed and floating at the bottom */}
-      <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-20 bg-card/70 backdrop-blur-md p-1.5 rounded-xl border border-border/20 shadow-lg">
+      <nav className="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 z-20 bg-card/40 backdrop-blur-md p-1.5 rounded-xl border border-border/20 shadow-lg">
         <div className="flex items-center">
           {navLinks.map((link) => (
             <Button

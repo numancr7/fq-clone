@@ -33,7 +33,7 @@ export function AboutSection({ aboutData }: { aboutData: AboutData }) {
     <section id="about" className="space-y-12">
       <div>
         <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">About Me</h2>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-lg text-muted-foreground whitespace-pre-line">
           {aboutData?.aboutText || 'About me information not available.'}
         </p>
       </div>
